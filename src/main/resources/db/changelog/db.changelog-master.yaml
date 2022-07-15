@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: mtifany
+      changes:
+        - createTable:
+            - tableName: color
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: colorName
+                    type: varchar(100)
+                    constraints:
+                      unique: true
+                      nullable: false
+        - createTable:
+            tableName: socks
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: cotton_part
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: color_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: color_fk
+                    references: color(id)
+  - changeSet:
+      id: 2
+      author: mtifany
+      changes:
+        - renameColumn:
+            oldColumnName: quantity
+            newColumnName: colorName
+            tableName: socks
+  - changeSet:
+      id: 3
+      author: mtifany
+      changes:
+        - renameColumn:
+            oldColumnName: colorName
+            newColumnName: quantity
+            tableName: socks
+  - changeSet:
+      id: 4
+      author: mtifany
+      changes:
+        - renameColumn:
+            oldColumnName: colorName
+            newColumnName: color_name
+            tableName: color
